@@ -1,0 +1,95 @@
+<?php
+// Include the library
+include('/home/mangal/data/www/mangal.biz/vizitka/wordpress/wp-admin/html_dom.php');
+
+// Retrieve the DOM from a given URL
+$html = file_get_html('https://afisha.mail.ru/series_756802_vo_vse_tyazhkie/');
+$counter = 0;
+foreach ($html->find('.movieabout__info__tab>table>tbody>tr') as $e) { 
+    if($counter < 15){
+	   $counter++;
+	   $string = strip_tags($e->innertext); //Delete html-tags.
+	    if($counter > 3){
+		    switch($counter){
+			    case 4:
+				    $serialStatus = substr($string, 12);
+			        echo $serialStatus.'<br>';
+			        break;
+				case 6:
+				    $directors = substr($string, 18);
+				    echo $directors.'<br>';
+			        break;
+				case 7:
+				    $actors = substr($string, 13);
+				    echo $actors.'<br>';
+			        break;
+				case 8:
+				    $producers = substr($string, 18);
+				    echo $producers.'<br>';
+			        break;
+				case 9:
+				    $screenwriter = substr($string, 20);
+				    echo $screenwriter.'<br>';
+			        break;
+				case 10:
+				    $operators = substr($string, 18);
+				    echo $operators.'<br>';
+			        break;
+				case 11: 
+				    $musician = substr($string, 20);
+                    echo $musician.'<br>';
+			        break;				
+				case 12:
+				    $premiere = substr($string, 16);
+				    echo $premiere.'<br>';
+			        break;
+				case 13:
+				    $averageDuration = substr($string, 35);
+                    echo $averageDuration . "<br>";
+			        break;
+				case 15: 
+                    $channel = substr($string, 26);
+                    echo $channel . "<br>";
+			        break;	
+                default:				
+		    }	       
+	    }
+	}
+}
+
+
+
+
+
+echo "<br>";
+
+$wgDBserver = 'localhost';
+$wgDBuser = 'mangal';
+$wgDBpassword = '73qPqVreXoV';
+$wgDBname = 'vizitka';
+
+$mysqli = new mysqli( $wgDBserver, $wgDBuser, $wgDBpassword );
+
+if ( mysqli_connect_errno() ) {
+    die( "Failed:" . mysqli_connect_error() );
+}
+
+if ( $mysqli->select_db( $wgDBname) ) {
+    echo 'Connected and DB selected.';
+} else {
+    echo 'Something went from (select_db())';
+}
+echo $mysqli->host_info . "\n";
+
+
+    $result = $mysqli->query("SELECT * FROM afisha");
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "serial_status: " . $row["serial_status"]. "<br>screenwriter: " . $row["screenwriter"]. "<br> channel " . $row["channel"]. "<br>";
+        }
+    } else {
+        echo "0 results";
+    }
+$mysqli->close();
+
+?>
