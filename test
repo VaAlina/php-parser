@@ -64,9 +64,9 @@ foreach ($html->find('.movieabout__info__tab>table>tbody>tr') as $e) {
 echo "<br>";
 
 $wgDBserver = 'localhost';
-$wgDBuser = 'mangal';
+$wgDBuser = 'Alina';
 $wgDBpassword = 'myPassWord';
-$wgDBname = 'vizitka';
+$wgDBname = 'test';
 
 $mysqli = new mysqli( $wgDBserver, $wgDBuser, $wgDBpassword );
 
