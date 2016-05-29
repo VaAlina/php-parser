@@ -65,7 +65,7 @@ echo "<br>";
 
 $wgDBserver = 'localhost';
 $wgDBuser = 'mangal';
-$wgDBpassword = '73qPqVreXoV';
+$wgDBpassword = 'myPassWord';
 $wgDBname = 'vizitka';
 
 $mysqli = new mysqli( $wgDBserver, $wgDBuser, $wgDBpassword );
